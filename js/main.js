@@ -163,14 +163,12 @@ Zepto(function($) {
 	$addPart.on("click", function(){
 		$partArray.push({w:Number($partWidth.val()), h:Number($partHeight.val()), qty:Number($quantity.val())});
 		$partArray.each(function(i){
-			console.log(this.w, this.h, this.qty);
 		})
 		$listPanel.append("<li class ='listItem'>" + $partWidth.val()
 			+ " | " + $partHeight.val()
 			+ " | " + $quantity.val()
 			+ " | " + $partName.val() + "</li>");
 		$listItems = $(".listItem");
-		console.log($listItems);
 	})
 
 	$pagerLeft.on("click", function(){
@@ -194,7 +192,6 @@ Zepto(function($) {
 	})
 
 	$("#partList").on("click", ".listItem", function(){
-		console.log(this);
 		this.remove();
 	})
 
