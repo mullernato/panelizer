@@ -103,19 +103,14 @@ input {
 	margin: 5px 20px;
 }
 
-.listPanel {
+table {
 	height: 90%;
 	width: 100%;
 	background-color: #FFF;
 	overflow: auto;
 }
 
-.listPanel ul {
-	margin: 0;
-	padding: 0;
-}
-
-.listItem {
+.table tr {
 	width: 100%;
 	cursor: pointer;
 }

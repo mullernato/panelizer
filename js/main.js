@@ -141,8 +141,9 @@ Zepto(function($) {
 	var $partWidth = $("#partWidth");
 	var $quantity = $("#quantity");
 	var $partName = $("#partName");
-	var $listPanel = $(".listPanel ul");
+	var $table = $("table");
 	var $listItems = $(".listItem");
+	var $removePart = $(".removePart");
 	var $addPanel = $("#addPanel");
 	var $addPart = $("#addPart");
 	var $partArray = $([]);
@@ -161,17 +162,21 @@ Zepto(function($) {
 	});
 
 	$addPart.on("click", function(){
+
 		$partArray.push({w:Number($partWidth.val()), h:Number($partHeight.val()), qty:Number($quantity.val())});
 		$partArray.each(function(i){
 		})
-		$listPanel.append("<li class ='listItem'>" + $partWidth.val()
-			+ " | " + $partHeight.val()
-			+ " | " + $quantity.val()
-			+ " | " + $partName.val() + "</li>");
+		$table.append("<tr><td>" + $partWidth.val()
+			+ "</td><td>" + $partHeight.val()
+			+ "</td><td>" + $quantity.val()
+			+ "</td><td>" + $partName.val()
+			+ "</td><td>" + "<button class='removePart'>X</button>"
+			+ "</td></tr>");
 		$listItems = $(".listItem");
 	})
 
 	$pagerLeft.on("click", function(){
+
 		$canvases = $("canvas");
 		if (pagerIndex > 0) {
 			pagerIndex--;
@@ -182,6 +187,7 @@ Zepto(function($) {
 	})
 
 	$pagerRight.on("click", function(){
+
 		$canvases = $("canvas");
 		if (pagerIndex < panels.length-1) {
 			pagerIndex++;
@@ -191,7 +197,7 @@ Zepto(function($) {
 		}
 	})
 
-	$("#partList").on("click", ".listItem", function(){
+	$table.on("click", "tr", function() {
 		this.remove();
 	})
 
