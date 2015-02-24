@@ -1,67 +1,73 @@
 <!doctype html>
 <html>
+
 <head>
-  <meta charset="UTF-8">
-  <title>Optimizer</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <title>Optimizer</title>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <div id="wrapper">
-    <div id="controls">
-    	 <ul class="tabs">
-    	 	<li id="selected">Size Entry</li>
-    	 	<li >Name Entry</li>
-    	 	<li id="optimize">Optimize</li>
-    	 </ul>
-    	 <div id="form">
-    	 	<div id="panelSize">
-    	 		<p class="formTitle">Panel Entry</p>
-                <p class="add" id="addPanel">Add</p>
-    	 		<input type="text" placeholder="height" id="panelHeight">
-    	 		<input type="text" placeholder="width" id="panelWidth">
-    	 		<input type="text" placeholder="material" id="material">
-    	 		<input type="text" placeholder="thickness" id="thickness">
-    	 	</div>
-    	 	<div id="partSize">
-    	 		<p class="formTitle">Part Entry</p>
-    	 		<p class="add" id="addPart">Add</p>
-    	 		<input type="text" placeholder="height" id="partHeight">
-    	 		<input type="text" placeholder="width" id="partWidth">
-    	 		<input type="text" placeholder="quantity" id="quantity">
-    	 		<input type="text" placeholder="name" id="partName">
-    	 	</div>
-    	 	<div id="partList">
-    	 		<div>
-    	 			<table>
-							<thead>
-								<tr>
-									<th> Width
-									<th> Height
-									<th> Quantity
-									<th> Name
-									<th> Remove
-								</tr>	
-							</thead>
-						</table>
-    	 		</div>
-    	 	</div>
-    	 </div>
-         <div id="infoDisplay">
-            <div id="clearAll">Clear All</div>
-            <div id="infoPager">
-                <ul>
-                    <li class="pagerButton" id="pagerLeft"><</li>
-                    <li class="pagerButton" id="pagerCenter">Sheet</li>
-                    <li class="pagerButton" id="pagerRight">></li>
-                </ul>
+    <div id="wrapper">
+        <div id="controls">
+            <ul class="tabs">
+                <li id="selected">Size Entry</li>
+                <li>Name Entry</li>
+                <li id="optimize">Optimize</li>
+            </ul>
+            <div id="form">
+                <div id="panelSize">
+                    <p class="formTitle">Panel Entry</p>
+                    <p class="add" id="addPanel">Add</p>
+                    <input type="text" placeholder="height" id="panelHeight">
+                    <input type="text" placeholder="width" id="panelWidth">
+                    <input type="text" placeholder="material" id="material">
+                    <input type="text" placeholder="thickness" id="thickness">
+                </div>
+                <div id="partSize">
+                    <p class="formTitle">Part Entry</p>
+                    <p class="add" id="addPart">Add</p>
+                    <input type="text" placeholder="height" id="partHeight">
+                    <input type="text" placeholder="width" id="partWidth">
+                    <input type="text" placeholder="quantity" id="quantity">
+                    <input type="text" placeholder="name" id="partName">
+                </div>
+                <div id="partList">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Width
+                                        <th>Height
+                                            <th>Quantity
+                                                <th>Name
+                                                    <th>Remove
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
-         </div>
+            <div id="infoDisplay">
+                <div id="clearAll">Clear All</div>
+                <div id="infoPager">
+                    <ul>
+                        <li class="pagerButton" id="pagerLeft">
+                            <</li>
+                                <li class="pagerButton" id="pagerCenter">Sheet</li>
+                                <li class="pagerButton" id="pagerRight">></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="panelDiv">
+        </div>
     </div>
-    <div id="panelDiv">
-    </div>
-  </div>
 </body>
 <script src="js/zepto.1.1.3.min.js"></script>
 <script src="js/packer.js"></script>
+<script src="js/foundation.min.js"></script>
 <script src="js/main.js"></script>
+
 </html>
