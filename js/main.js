@@ -1,14 +1,62 @@
 $(document).foundation();
 
+
+// TODO break out into separate files
+// TODO create separate size entry and panel views
+// TODO show detailed panel information in panel view
+// TODO add kerf field to panel form
+// TODO add kerf value to width and height of each part
+// TODO remove parts from $addedParts when removed from part table
+// TODO ensure part is smaller than sheet before adding to list
+// TODO provide messaging for validation, button presses etc.
+// TODO setup gulp?
+
 Zepto(function ($) {
+    
+  var fitFactor = 5;
+  var panelHeight = 0;
+  var panelWidth = 0;
+  var material = "";
+  var thickness = 0;
+  var widthOffset = 250;
+  var panels = [];
+  var partArray = [];
+
+  var $controls = $("#controls");
+  var $optimizeButton = $("#optimize");
+  var $infoDisplay = $("#infoDisplay");
+  var $panelHeight = $("#panelHeight");
+  var $panelWidth = $("#panelWidth");
+  var $material = $("#material");
+  var $thickness = $("#thickness");
+  var $panelInputs = $(".panelInput");
+  var $partHeight = $("#partHeight");
+  var $partWidth = $("#partWidth");
+  var $quantity = $("#quantity");
+  var $partName = $("#partName");
+  var $partInputs = $(".partInput");
+  var $table = $("table");
+  var $clearPartList = $("#clearPartList");
+  var $listItems = $(".listItem");
+  var $removePart = $(".removePart");
+  var $addPanel = $("#addPanel");
+  var $clearPanel = $("#clearPanel")
+  var $addPart = $("#addPart");
+  var $clearPart = $("#clearPart")
+  var $addedParts = $([]);
+  var $panelDiv = $("#panelDiv");
+  var $pagerLeft = $("#pagerLeft");
+  var $pagerCenter = $("#pagerCenter");
+  var $pagerRight = $("#pagerRight");
+  var pagerIndex = 0;
 
   // builds an array of parts
   var addToPartArray = function () {
-    for (var i = 0; i < $partArray.size(); i++) {
-      for (var t = 0; t < $partArray[i].qty; t++) {
+    for (var i = 0; i < $addedParts.size(); i++) {
+      for (var t = 0; t < $addedParts[i].qty; t++) {
         partArray.push({
-          w: fitDisplay($partArray[i].w),
-          h: fitDisplay($partArray[i].h)
+          w: fitDisplay($addedParts[i].w),
+          h: fitDisplay($addedParts[i].h)
         });
       }
     }
@@ -133,45 +181,6 @@ Zepto(function ($) {
     }
   }
 
-  var fitFactor = 5;
-  var panelHeight = 48;
-  var panelWidth = 96;
-  var material = "";
-  var thickness = "";
-  var widthOffset = 250;
-  var parts1 = [];
-  var parts2 = [];
-  var panels = [];
-  var partArray = [];
-
-  var $controls = $("#controls");
-  var $optimizeButton = $("#optimize");
-  var $infoDisplay = $("#infoDisplay");
-  var $panelHeight = $("#panelHeight");
-  var $panelWidth = $("#panelWidth");
-  var $material = $("#material");
-  var $thickness = $("#thickness");
-  var $panelInputs = $(".panelInput");
-  var $partHeight = $("#partHeight");
-  var $partWidth = $("#partWidth");
-  var $quantity = $("#quantity");
-  var $partName = $("#partName");
-  var $partInputs = $(".partInput");
-  var $table = $("table");
-  var $clearPartList = $("#clearPartList");
-  var $listItems = $(".listItem");
-  var $removePart = $(".removePart");
-  var $addPanel = $("#addPanel");
-  var $clearPanel = $("#clearPanel")
-  var $addPart = $("#addPart");
-  var $clearPart = $("#clearPart")
-  var $partArray = $([]);
-  var $panelDiv = $("#panelDiv");
-  var $pagerLeft = $("#pagerLeft");
-  var $pagerCenter = $("#pagerCenter");
-  var $pagerRight = $("#pagerRight");
-  var pagerIndex = 0;
-
   $addPanel.on('click', function () {
     if ($panelHeight.val() !== "" && $panelWidth.val() !== "" &&$material.val() !== "" && $thickness.val() !== "") {
       panelHeight = $panelHeight.val();
@@ -181,22 +190,23 @@ Zepto(function ($) {
       $addPanel.html("Added");
     }
   });
-
+  
   $addPart.on("click", function () {
     if ($partWidth.val() !== "" && $partHeight.val() !== "" && $quantity.val() !== "" && $partName.val() !== "") {
-      $partArray.push({
+      $addedParts.push({
         w: Number($partWidth.val()),
         h: Number($partHeight.val()),
         qty: Number($quantity.val())
       });
-      $partArray.each(function (i) {})
+      
       $table.append('<tr class="part"><td>' + $partWidth.val() + "</td><td>" + $partHeight.val() + "</td><td>" + $quantity.val() + "</td><td>" + $partName.val() + "</td><td>" + "<button class='button tiny removePart'>X</button>" + "</td></tr>");
+      
+      //update the list of parts
       $listItems = $(".listItem");
     }
-  })
+  });
 
   $pagerLeft.on("click", function () {
-
     $canvases = $("canvas");
     if (pagerIndex > 0) {
       pagerIndex--;
@@ -207,7 +217,6 @@ Zepto(function ($) {
   });
 
   $pagerRight.on("click", function () {
-
     $canvases = $("canvas");
     if (pagerIndex < panels.length - 1) {
       pagerIndex++;
@@ -233,23 +242,25 @@ Zepto(function ($) {
   $clearPartList.on("click", function () {
     var $parts = $(".part");
     $parts.remove();
-    $partArray = [];
+    $addedParts = [];
   })
 
   $optimizeButton.on('click', function () {
+    if($addedParts.length > 0){
+      partArray = [];
+      addToPartArray();
 
-    partArray = [];
-    addToPartArray();
+      optimize(partArray);
 
-    optimize(partArray);
+      for (var i = 0; i < panels.length; i++) {
+        panels[i].push(1);
+      }
 
-    for (var i = 0; i < panels.length; i++) {
-      panels[i].push(1);
-    }
-
-    deduplicatePanels(panels);
-    displayPanels(panels);
-    $pagerCenter.html(1);
+      deduplicatePanels(panels);
+      displayPanels(panels);
+      $pagerCenter.html(1);
+    };
+    
   });
 
 });
